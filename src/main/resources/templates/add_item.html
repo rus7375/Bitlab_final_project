@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/moderator.html">
+<div layout:fragment="content">
+    <div class="col-9">
+        <div class="mb-3">
+            <h4 th:text="#{label.add.item}">Add Item</h4>
+        </div>
+        <form th:action="@{'/moderator-panel/add-item'}" method="post">
+            <div class="mb-3">
+                <label th:text="#{label.item.name}">Name</label>
+                <input type="text" class="form-control" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label th:text="#{label.description}">Description</label>
+                <input type="text" class="form-control" name="description" required>
+            </div>
+            <div class="mb-3">
+                <label  th:text="#{label.price}">Price</label>
+                <input type="number" class="form-control" name="price" required>
+            </div>
+            <div class="mb-3">
+                <label th:text="#{label.categories}">Categories</label>
+                <select class="form-select" name="category">
+                    <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.category}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label th:text="#{label.brand}">Brand</label>
+                <select class="form-select" name="brand">
+                    <option th:each="brand: ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success"  th:text="#{button.add.item}">Add Item</button>
+            </div>
+        </form>
+    </div>
+</div>
+</html>

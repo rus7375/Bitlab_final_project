@@ -1,0 +1,37 @@
+<form class="mt-2" th:action="@{'/search'}" method="get">
+  <div class="d-flex">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+           data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+           aria-controls="collapseExample" name="name">
+    <button class="btn btn-outline-success" type="submit" th:text="#{buttons.search}">Search</button>
+  </div>
+  <div class="collapse mt-3" id="collapseExample">
+    <div class="card card-body">
+      <div class="row mt-2">
+        <div class="col-4">
+          <label th:text="#{sidebar.brands}">Brand</label>
+          <select class="form-select" name="brand">
+            <option th:each="brand :${brands}" th:value="${brand.name}" th:text="${brand.name}">City</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <label th:text="#{label.price.from}">Price from</label>
+          <input class="form-control" type="number" name="price_from">
+        </div>
+        <div class="col-2">
+          <label th:text="#{label.price.to}">Price to</label>
+          <input class="form-control" type="number" name="price_to">
+        </div>
+        <div class="col-4 mb-3 align-content-end" >
+          <label class="text-center" th:text="#{label.order.by.price}">Order by price:</label>
+          <div class="d-flex gap-1">
+            <input type="radio" class="btn-check" name="search_type" id="btn-check-1-outlined"  value="asc" checked autocomplete="off">
+            <label class="btn btn-outline-primary" for="btn-check-1-outlined" th:text="#{label.ascending}">Ascending</label><br>
+            <input type="radio" class="btn-check" name="search_type" id="btn-check-2-outlined"  value="desc" checked autocomplete="off">
+            <label class="btn btn-outline-primary" for="btn-check-2-outlined" th:text="#{label.descending}">descending</label><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

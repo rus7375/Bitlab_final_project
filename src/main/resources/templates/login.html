@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/join.html">
+<div layout:fragment="content">
+  <div class="col-6 mx-auto">
+    <form th:action="@{'/user/auth'}" method="post">
+      <div class="mt-3">
+        <label th:text="#{label.email}">Email</label>
+        <input type="email" class="form-control" name="email" required style="background-color: #edf1f4">
+      </div>
+      <div class="mt-3">
+        <label th:text="#{label.password}">Password</label>
+        <input type="password" class="form-control" name="password" required style="background-color: #edf1f4">
+      </div>
+      <div class="mt-3">
+        <button class="btn btn-success" th:text="#{buttons.login}">Login</button>
+      </div>
+      <div class="d-flex gap-2 mt-3">
+        <p th:text="#{label.no.account}">Don't have an acount?</p>
+        <a th:href="@{'/user/register'}" th:text="#{label.register.here}">Register here!</a>
+      </div>
+    </form>
+  </div>
+</div>
+</html>

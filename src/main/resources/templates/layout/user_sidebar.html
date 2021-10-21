@@ -1,0 +1,26 @@
+<div class="row" lang="en" xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <div class="col-10 mx-auto">
+    <img th:src="@{'/user/view-photo/' + ${CURRENT_USER.avatar}}" class="my-3 w-100">
+  </div>
+  <div class="col">
+    <div class="card mt-3">
+      <div class="card-header" style="background-color: #0b7e3e; color: white; font-weight: bold;" th:text="#{nav.profile}">
+        Profile
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <a href="#" class="text-dark text-decoration-none" aria-current="true" th:text="#{nav.basket}">
+            Basket
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a th:href="@{'/user/edit-profile'}" class="text-dark text-decoration-none" th:text="#{sidebar.profile.edit}">Edit Profile</a>
+        </li>
+        <li class="list-group-item">
+          <a th:href="@{'/user/password'}" class="text-dark text-decoration-none" th:text="#{sidebar.password}">Password</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/moderator.html">
+<div layout:fragment="content">
+    <div class="col-9">
+        <div class="row mb-3">
+            <div class="col-6">
+                <h4  th:text="#{label.countries}">Countries</h4>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" th:text="#{buttons.add}">
+                    Add Country
+                </button>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark">
+                <th th:text="#{label.id}">ID</th>
+                <th th:text="#{label.item.name}">Name</th>
+                <th th:text="#{label.code}">Code</th>
+                <th th:text="#{label.details}">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="country : ${countries}">
+                <td th:text="${country.id}"></td>
+                <td th:text="${country.name}"></td>
+                <td th:text="${country.code}"></td>
+                <td><a class="btn btn-dark" th:href="@{'/moderator-panel/country-details/'+${country.id}}"  th:text="#{label.details}">Details</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form th:action="@{'/moderator-panel/add-country'}" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" th:text="#{buttons.add}">Add Country</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label th:text="#{label.country}">Country</label>
+                            <input type="text" class="form-control" name="country_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label th:text="#{label.code}">Code</label>
+                            <input type="text" class="form-control" name="country_code" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{buttons.close}">Close</button>
+                        <button class="btn btn-primary" th:text="#{buttons.add}">Add Country</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

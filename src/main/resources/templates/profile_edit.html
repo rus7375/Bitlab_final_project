@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/user.html">
+<div layout:fragment="content">
+    <div class="col-9">
+        <div class="mb-3">
+            <h4 class="text-center">Profile Details</h4>
+        </div>
+        <form method="post" th:action="@{'/user/upload-avatar'}" enctype="multipart/form-data">
+            <label th:text="#{label.avatar}">Avatar</label>
+            <div class="input-group mb-2">
+                <input type="file" class="form-control" id="inputGroupFile04" name="avatar"
+                       aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-outline-success">Upload</button>
+            </div>
+        </form>
+        <div class="mb-3">
+            <h4 class="text-center" th:text="#{label.details}">User Details</h4>
+        </div>
+        <form th:action="@{'/user/edit-profile'}" method="post">
+            <div class="mb-3">
+                <label th:text="#{label.email}">Email</label>
+                <input type="email" class="form-control" name="email" readonly
+                      th:value="${CURRENT_USER.email}">
+            </div>
+            <div class="mb-3">
+                <label  th:text="#{label.name}">Name</label>
+                <input type="text" class="form-control" name="name" required
+                       th:value="${CURRENT_USER.name}">
+            </div>
+            <div class="mb-3">
+                <label  th:text="#{label.surname}">Surname</label>
+                <input type="text" class="form-control" name="surname" required
+                        th:value="${CURRENT_USER.surname}">
+            </div>
+            <label  th:text="#{label.gender}">Gender:</label>
+            <div class="mb-3">
+                <label th:text="#{label.male}">Male</label>
+                <input type="radio" class="form-check-input" name="gender" value="male" th:checked="${CURRENT_USER.gender.equals('male')}">
+                <label th:text="#{label.female}">Female</label>
+                <input type="radio" class="form-check-input" name="gender" value="female" th:checked="${CURRENT_USER.gender.equals('female')}">
+            </div>
+            <div class="mb-3">
+                <label  th:text="#{label.birth.date}">Birth Date</label>
+                <input type="date" class="form-control" name="birth_date" required
+                       th:value="${CURRENT_USER.birthDate}">
+            </div>
+            <div class="mb-3">
+                <label th:text="#{label.phone.number}">Phone Number</label>
+                <input type="number" class="form-control" name="phone_number"
+                        th:value="${CURRENT_USER.phoneNumber}">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success" th:text="#{buttons.update}">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+</html>

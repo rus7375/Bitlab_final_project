@@ -1,0 +1,36 @@
+.rating_star {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+.rating_star>input {
+    display: none
+}
+
+.rating_star>label {
+    position: relative;
+    width: 1em;
+    font-size: 2vw;
+    color: #FFD600;
+    cursor: pointer;
+}
+
+.rating_star>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating_star>label:hover:before,
+.rating_star>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating_star>input:checked~label:before {
+    opacity: 1
+}
+
+.rating_star:hover>input:checked~label:before {
+    opacity: 0.4
+}

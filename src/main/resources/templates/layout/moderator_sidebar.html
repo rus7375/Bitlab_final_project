@@ -1,0 +1,29 @@
+<div class="row" lang="en" xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="col">
+        <div class="card mt-3">
+            <div class="card-header" style="background-color: #0b7e3e; color: white; font-weight: bold;">
+                Dashtable
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="/moderator-panel/items" class="text-dark text-decoration-none" aria-current="true" th:text="#{sidebar.items}">
+                        Items
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/moderator-panel/categories" class="text-dark text-decoration-none" th:text="#{sidebar.categories}">Categories</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/moderator-panel/brands" class="text-dark text-decoration-none" th:text="#{sidebar.brands}">Brands</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/moderator-panel/countries" class="text-dark text-decoration-none" th:text="#{sidebar.countries}">Countries</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/moderator-panel/carousel" class="text-dark text-decoration-none" th:text="#{sidebar.carousel}">Carousel</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

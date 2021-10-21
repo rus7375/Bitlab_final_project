@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark my-0" style="background-color: #0b7e3e;"
+     lang="en" xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="container w-75">
+        <a class="navbar-brand" href="/"><i class="fab fa-asymmetrik"></i> ALL E-SHOP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
+                    <a class="nav-link" href="/moderator-panel" th:text="#{nav.mod}">Moderator panel</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                    <a class="nav-link" href="/admin-panel"th:text="#{nav.admin}">Admin panel</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)" onclick="getItems()" th:text="#{nav.basket}">Basket</a>
+                    <form  th:action="@{'/view-basket-items'}" method="post" id="basket_form_id">
+                        <input type="text"  hidden id="item_id" name="basket_array">
+                    </form>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdownId" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false" th:text="#{nav.lang}">
+                        ENG
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="languageDropdownId">
+                        <li><a class="dropdown-item" th:href="${'?lng=en'}">ENG</a></li>
+                        <li><a class="dropdown-item" th:href="${'?lng=kz'}">KAZ</a></li>
+                        <li><a class="dropdown-item" th:href="${'?lng=ru'}">RUS</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="${'/user/login'}" th:text="#{nav.login}">Login</a>
+                </li>
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-bs-toggle="dropdown" aria-expanded="false" th:text="${CURRENT_USER.name}">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item" th:href="@{'/user/profile'}"th:text="#{nav.profile}">Profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="javaScript:void(0)" onclick="logout()" th:text="#{nav.logout}">Logout</a>
+                            </li>
+                            <form method="post" th:action="${'/user/logout'}" id="formLogoutId">
+
+                            </form>
+                            <script type="text/javascript">
+                                function logout() {
+                                    document.getElementById('formLogoutId').submit();
+                                }
+                            </script>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>

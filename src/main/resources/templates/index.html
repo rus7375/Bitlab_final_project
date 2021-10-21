@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/main.html">
+<div layout:fragment="content">
+  <div class="row">
+    <div layout:insert="~{layout/search.html}"></div>
+    <div id="carouselExampleIndicators" class="carousel slide mt-3" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" th:each="picture : ${carouselPictures}" th:if="${carouselPictures.get(0).equals(picture)}"
+                data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" th:each="picture : ${carouselPictures}" th:if="${!carouselPictures.get(0).equals(picture)}"
+                th:data-bs-slide-to="${carouselPictures.indexOf(picture)}" aria-label="Slide 2"></button>
+      </div>
+      <div class="carousel-inner" style="height: 480px;">
+        <div class="carousel-item active h-100" th:each="picture : ${carouselPictures}" th:if="${carouselPictures.get(0).equals(picture)}">
+          <img th:src="@{'/view-cardpicture/' +${picture.url}}" class="d-block w-100" style="max-height: 480px;" alt="...">
+        </div>
+        <div class="carousel-item h-100" th:each="picture : ${carouselPictures}" th:if="${!carouselPictures.get(0).equals(picture)}">
+          <img th:src="@{'/view-cardpicture/' +${picture.url}}" class="d-block w-100" style="max-height: 480px;" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 mt-3">
+    <div class="col mb-4" th:each="item : ${items}">
+      <div class="card h-100" style=" min-height: 440px; max-width: 440px;">
+        <img th:src="@{'/view-cardpicture/' +${item.smallPicURL}}" class="my-3 w-100">
+
+        <div class="card-body">
+          <h6 class="card-title"><a th:href="@{'/item/' + ${item.id}}" style="font-weight: bold; text-decoration: none;" th:text="${item.name}">Iphone 12 PRO MAX</a></h6>
+          <h6 style="font-weight: bold;" th:text="${'$'+item.price}">$ 1200</h6>
+          <p class="card-text" th:text="${item.description}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="mx-3 card-bottom">
+          <ul class="list-inline mt-3">
+            <li class="list-inline-item"><h7 th:text="#{label.brand}">BRAND:</h7></li>
+            <li class="list-inline-item"><h7><a th:href="@{'/brands/' + ${item.brand.name}}" th:text="${item.brand.name+' '}">Apple,</a></h7></li>
+            <li class="list-inline-item"><h7 th:text="${item.brand.country.code}">USA</h7></li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <div class="rating_star">
+            <input type="radio" checked disabled><label>★</label>
+            <input type="radio" checked disabled><label>★</label>
+            <input type="radio" checked disabled><label>★</label>
+            <input type="radio" checked disabled><label>★</label>
+            <input type="radio" checked disabled><label>★</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</html>

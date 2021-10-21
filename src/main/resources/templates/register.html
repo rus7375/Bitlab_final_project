@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/join.html">
+<div layout:fragment="content">
+  <div class="col-6 mx-auto">
+    <div class="mb-3">
+      <h4 class="text-center" th:text="#{label.create.account}">Create Account</h4>
+    </div>
+    <form th:action="@{'/user/toregister'}" method="post">
+      <div class="mb-3">
+        <label th:text="#{label.email}">Email</label>
+        <input type="email" class="form-control" name="email" required style="background-color: #edf1f4">
+      </div>
+      <div class="mb-3">
+        <label th:text="#{label.password}">Password</label>
+        <input type="password" class="form-control" name="password" required style="background-color: #edf1f4">
+      </div>
+      <div class="mb-3">
+        <label th:text="#{label.repassword}">Retype password</label>
+        <input type="password" class="form-control" name="re_password" required style="background-color: #edf1f4">
+      </div>
+      <div class="mb-3">
+        <label th:text="#{label.name}">Name</label>
+        <input type="text" class="form-control" name="name" required style="background-color: #edf1f4">
+      </div>
+      <div class="mb-3">
+        <label th:text="#{label.surname}">Surname</label>
+        <input type="text" class="form-control" name="surname" required style="background-color: #edf1f4">
+      </div>
+      <label th:text="#{label.gender}">Gender:</label>
+      <div class="mb-3">
+        <label th:text="#{label.male}">Male</label>
+        <input type="radio" class="form-check-input" name="gender" value="male" checked>
+        <label th:text="#{label.female}">Female</label>
+        <input type="radio" class="form-check-input" name="gender" value="female">
+      </div>
+      <div class="mb-3">
+        <label th:text="#{label.birth.date}">Birth Date</label>
+        <input type="date" class="form-control" name="birth_date" required style="background-color: #edf1f4">
+      </div>
+      <div class="mb-3">
+        <label th:text="#{label.phone.number}">Phone Number</label>
+        <input type="number" class="form-control" name="phone_number" required style="background-color: #edf1f4">
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-success" th:text="#{buttons.login}">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
+</html>

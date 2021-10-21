@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/moderator.html">
+<div layout:fragment="content">
+    <div class="col-9">
+        <div class="row mb-3">
+            <div class="col-8">
+                <h4 th:text="#{label.items}">Items</h4>
+            </div>
+            <div class="col">
+                <a class="btn btn-primary float-end" href="/moderator-panel/add-item">Add Item</a>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark">
+                <th th:text="#{label.id}">ID</th>
+                <th th:text="#{label.name}">Name</th>
+                <th th:text="#{label.price}">Price</th>
+                <th th:text="#{label.added.date}">Added Date</th>
+                <th th:text="#{label.top.page}">Top Page</th>
+                <th th:text="#{label.details}">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.price}"></td>
+                <td th:text="${item.addedDate.toLocaleString()}"></td>
+                <td>
+                    <div class="form-check form-switch">
+                        <form method="post" th:action="@{'/moderator-panel/top-page-item'}" th:id="'topForm'+ ${item.id}">
+                            <input type="hidden" th:value="${item.id}" name="item_id">
+                            <input type="hidden" th:value="${item.inTopPage}" name="top_page">
+                            <input class="form-check-input" th:type="checkbox" th:id="'topBtn'+${item.id}"
+                                   th:checked="${item.inTopPage}"
+                                   th:data-top="${item.id}"
+                                   onclick="document.getElementById('topForm' + this.getAttribute('data-top')).submit()"
+                            >
+                            <label class="form-check-label" th:for="'topBtn'+${item.id}" th:text="#{label.top}">Top</label>
+                        </form>
+                    </div>
+                </td>
+                <td><a class="btn btn-dark" th:href="@{'/moderator-panel/item-details/'+${item.id}}" th:text="#{label.details}">Details</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/admin.html">
+<div class="row" layout:fragment="content">
+    <div class="col-12">
+        <h3 th:text="#{label.roles}">ROLES</h3>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark">
+                <th th:text="#{label.id}">ID</th>
+                <th th:text="#{label.email}">EMAIL</th>
+                <th th:text="#{label.name}">NAME</th>
+                <th th:text="#{label.roles}">ROLES</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user:${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.name + ' ' + user.surname}"></td>
+                <td>
+                    <div class="d-flex gap-3">
+                        <div class="form-check form-switch">
+                            <form method="post" th:action="@{'/admin-panel/role'}" th:id="'adminform'+ ${user.id}">
+                                <input type="hidden" th:value="${user.email}" name="user_email">
+                                <input type="hidden" th:value="${0}" name="role_id">
+                                <input class="btn-check" type="submit" th:type="checkbox" th:id="'adminbtn'+${user.id}" autocomplete="off"
+                                       th:checked="${user.roles.contains(roles.get(0))}"
+                                       th:disabled="${user.email.equals('admin@mail.ru')}"
+                                       th:data-admin="${user.id}"
+                                       onclick="document.getElementById('adminform' + this.getAttribute('data-admin')).submit()"
+                                >
+                                <label class="btn btn-outline-dark" th:for="'adminbtn'+${user.id}"  th:text="#{label.admin}">Admin</label><br>
+                            </form>
+                        </div>
+                        <div class="form-check form-switch">
+                            <form method="post" th:action="@{'/admin-panel/role'}" th:id="'modform'+ ${user.id}">
+                                <input type="hidden" th:value="${user.email}" name="user_email">
+                                <input type="hidden" th:value="${1}" name="role_id">
+                                <input class="btn-check" type="submit" th:type="checkbox" th:id="'modbtn'+${user.id}" autocomplete="off"
+                                       th:checked="${user.roles.contains(roles.get(1))}"
+                                       th:disabled="${user.email.equals('admin@mail.ru')}"
+                                       th:data-mod="${user.id}"
+                                       onclick="document.getElementById('modform' + this.getAttribute('data-mod')).submit()"
+                                >
+                                <label class="btn btn-outline-dark" th:for="'modbtn'+${user.id}" th:text="#{label.mod}">Moderator</label><br>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</html>

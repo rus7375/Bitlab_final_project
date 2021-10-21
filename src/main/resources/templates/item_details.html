@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/moderator.html">
+<div layout:fragment="content">
+    <div class="col-9">
+        <div class="row">
+            <h4 th:text="#{label.small.pic}">Small Picture</h4>
+            <div class="col-3">
+                <img th:src="@{'/view-cardpicture/' +${item.smallPicURL}}" class="my-3 w-100">
+            </div>
+        </div>
+        <form method="post" th:action="@{'/moderator-panel/upload-cardpicture/' + ${item.id}}" enctype="multipart/form-data">
+            <div class="input-group mb-3">
+                <input type="file" required class="form-control" name="card_picture" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+            </div>
+            <div class="mb-2">
+                <button class="btn btn-success"  th:text="#{buttons.upload}">Upload</button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <h4  th:text="#{label.images}">Images</h4>
+        <div class="d-flex gap-3">
+            <div class="col-2" th:each="image: ${images}">
+                <img th:src="@{'/view-cardpicture/' +${image.url}}" class="my-3 w-100">
+            </div>
+        </div>
+    </div>
+    <form method="post" th:action="@{'/moderator-panel/upload-image/' + ${item.id}}" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+            <input type="file" required class="form-control" name="item_image" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+        </div>
+        <div class="mb-2">
+            <button class="btn btn-success" th:text="#{buttons.upload}">Upload</button>
+        </div>
+    </form>
+    <div class="mb-3">
+        <h4  th:text="#{label.details}">Item Details</h4>
+    </div>
+    <form th:action="@{'/moderator-panel/update-item/' + ${item.id}}" method="post">
+        <div class="mb-3">
+            <label th:text="#{label.item.name}">Name</label>
+            <input type="text" class="form-control" name="name" required th:value="${item.name}">
+        </div>
+        <div class="mb-3">
+            <label th:text="#{label.description}">Description</label>
+            <input type="text" class="form-control" name="description" required th:value="${item.description}">
+        </div>
+        <div class="mb-3">
+            <label th:text="#{label.price}">Price</label>
+            <input type="number" class="form-control" name="price" required th:value="${item.price}">
+        </div>
+        <div class="mb-3">
+            <label th:text="#{label.categories}">Categories</label>
+            <select class="form-select" name="category">
+                <option th:each="category: ${categories}" th:value="${category.id}"
+                        th:text="${category.category}" th:selected="${category.id == item.category.id}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label th:text="#{label.brand}">Brand</label>
+            <select class="form-select" name="brand">
+                <option th:each="brand: ${brands}" th:value="${brand.id}"
+                        th:text="${brand.name}" th:selected="${brand.id == item.brand.id}"></option>
+            </select>
+        </div>
+        <div class="mb-3 d-flex gap-3">
+            <button class="btn btn-success"  th:text="#{buttons.update}">Update</button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#deleteModalId" th:text="#{buttons.delete}">
+                Delete
+            </button>
+        </div>
+    </form>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModalId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" th:text="#{label.delete.item}">Delete Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" th:text="#{label.sure}">
+                    Are tou sure?
+                </div>
+                <div class="modal-footer">
+                    <form th:action="@{'/moderator-panel/delete-item'}" method="post">
+                        <input type="hidden" name="item_id" th:value="${item.id}">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-danger" th:text="#{buttons.delete}">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>

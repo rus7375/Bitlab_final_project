@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout/moderator.html">
+<div layout:fragment="content">
+    <div class="col-9">
+        <div class="row mb-3">
+            <div class="col-8">
+                <h4  th:text="#{label.categories}">Categories</h4>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+                        data-bs-target="#categoriesModalId" th:text="#{buttons.add}">
+                    Add Category
+                </button>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark">
+                <th th:text="#{label.id}">ID</th>
+                <th th:text="#{label.category}">Category</th>
+                <th th:text="#{label.details}">Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.id}"></td>
+                <td th:text="${category.category}"></td>
+                <td><a class="btn btn-dark" th:href="@{'/moderator-panel/category-details/'+${category.id}}">Details</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="categoriesModalId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{'/moderator-panel/add-category'}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label  th:text="#{label.category}">Category</label>
+                            <input type="text" class="form-control" name="category_name" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  th:text="#{buttons.close}">Close</button>
+                        <button class="btn btn-primary" th:text="#{buttons.add}">Add Category</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

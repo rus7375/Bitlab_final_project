@@ -1,0 +1,42 @@
+<div class="row" lang="en" xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <div class="col">
+    <div class="card mt-2">
+      <div class="card-header" style="background-color: #0b7e3e; color: white; font-weight: bold;" th:text="#{sidebar.categories}" >
+        Categories
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" th:each="category: ${categories}">
+          <a class="text-dark" th:href="@{'/categories/' + ${category.category}}" th:text="${category.category}"
+             style="font-weight: bold; text-decoration: none; ">Smartphones</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card mt-3">
+      <div class="card-header" style="background-color: #0b7e3e; color: white; font-weight: bold;" th:text="#{sidebar.brands}">
+        Brands
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" th:each="brand: ${brands}">
+          <a class="text-dark" th:href="@{'/brands/' + ${brand.name}}" th:text="${brand.name}"
+             style="font-weight: bold; text-decoration: none; ">Apple</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card mt-3">
+      <div class="card-header" style="background-color: #0b7e3e; color: white; font-weight: bold;" th:text="#{sidebar.payment}">
+        Payments
+      </div>
+      <div class="card-body">
+        <div class="row row-cols-3 m-0">
+          <i class="fab fa-cc-visa fa-3x"></i>
+          <i class="fab fa-cc-paypal fa-3x"></i>
+          <i class="fab fa-cc-mastercard fa-3x"></i>
+          <i class="fab fa-cc-apple-pay fa-3x"></i>
+          <i class="fab fa-cc-amex fa-3x"></i>
+          <i class="fab fa-cc-amazon-pay fa-3x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
